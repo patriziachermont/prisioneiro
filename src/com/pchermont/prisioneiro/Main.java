@@ -30,6 +30,8 @@ public class Main {
 		GAConfig.delta			= 0.0;		
 		GAConfig.pMutacao 		= 0.01;
 		
+		Populacao populacao = new Populacao();
+		
 		/**
 		 * Primeira simulação: Torneio
 		 * Algoritmo:
@@ -40,18 +42,18 @@ public class Main {
 		 * 		e) Reportar o tempo total e o índice de cooperações.
 		 */
 		System.out.println("****************Torneio****************");
-		Populacao.inicializar();		 
+		populacao.inicializar();		 
 		System.out.println(
-				Populacao.tempoMedio()+", C = "+Populacao.cooperacoes());
+				populacao.tempoMedio()+", C = "+populacao.cooperacoes());
 		for (int i = 0; i < GAConfig.nEpocas; i++){
-			Populacao.torneio();
-			Populacao.misturar();
-			Populacao.geracao();			
+			populacao.torneio();
+			populacao.misturar();
+			populacao.geracao();			
 		}
-		Populacao.ordenar();
+		populacao.ordenar();
 		System.out.println(
-				Populacao.tempoMedio()+", C = "+Populacao.cooperacoes()
-				+"\n"+Populacao.relatorio()
+				populacao.tempoMedio()+", C = "+populacao.cooperacoes()
+				+"\n"+populacao.relatorio()
 				);
 		
 		
@@ -68,18 +70,18 @@ public class Main {
 		 * 		g) Reportar o tempo total de cadeia e o índice de cooperações.
 		 */
 		System.out.println("\n****************Metade****************");
-		Populacao.inicializar();
+		populacao.inicializar();
 		System.out.println(
-				Populacao.tempoMedio()+", C = "+Populacao.cooperacoes());
+				populacao.tempoMedio()+", C = "+populacao.cooperacoes());
 		for (int i = 0; i < GAConfig.nEpocas; i++){
-			Populacao.comparar(false);
-			Populacao.misturar();
-			Populacao.geracao();
+			populacao.comparar(false);
+			populacao.misturar();
+			populacao.geracao();
 		}
-		Populacao.ordenar();
+		populacao.ordenar();
 		System.out.println(
-				Populacao.tempoMedio()+", C = "+Populacao.cooperacoes()
-				+"\n"+Populacao.relatorio()
+				populacao.tempoMedio()+", C = "+populacao.cooperacoes()
+				+"\n"+populacao.relatorio()
 				);
 		
 		/**
@@ -94,18 +96,18 @@ public class Main {
 		 * 		g) Reportar o tempo total de cadeia e o índice de cooperações.
 		 */
 		System.out.println("\n****************Toda a População****************");
-		Populacao.inicializar();
+		populacao.inicializar();
 		System.out.println(
-				Populacao.tempoMedio()+", C = "+Populacao.cooperacoes());
+				populacao.tempoMedio()+", C = "+populacao.cooperacoes());
 		for (int i = 0; i < GAConfig.nEpocas; i++){
-			Populacao.comparar(true);
-			Populacao.misturar();
-			Populacao.geracao();			
+			populacao.comparar(true);
+			populacao.misturar();
+			populacao.geracao();			
 		}
-		Populacao.ordenar();
+		populacao.ordenar();
 		System.out.println(
-				Populacao.tempoMedio()+", C = "+Populacao.cooperacoes()
-				+"\n"+Populacao.relatorio()
+				populacao.tempoMedio()+", C = "+populacao.cooperacoes()
+				+"\n"+populacao.relatorio()
 				);		
 		
 		/**

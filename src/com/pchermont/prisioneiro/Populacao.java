@@ -7,30 +7,26 @@ import java.util.List;
 
 /**
  * Classe de representação da Populaação de indivíduos prisioneiros.
- * Esta classe possui construtor privado (não pode ser instanciado) e possui
- * apenas métodos e atributos estáticos para garantir apenas uma instância
- * durante a simulação.
  * @author Patrizia Chermont
  *
  */
 public class Populacao{
 
-	private static final long serialVersionUID = 1L;
 	/**
-	 * Lista de Prisioneiros da população;.
+	 * Lista de Prisioneiros da população.
 	 */
-	private static List<Prisioneiro> prisioneiros;
+	private List<Prisioneiro> prisioneiros;
 
 	/**
-	 * Construtor privado vazio.
+	 * Construtor público vazio.
 	 */
-	private Populacao(){		
+	public  Populacao(){
 	}
 	
 	/**
 	 * Gera uma nova população de prisioneiros com cadeia aleatória de genes.
 	 */
-	public static void inicializar(){
+	public void inicializar(){
 		prisioneiros = new ArrayList<Prisioneiro>(GAConfig.nPrisioneiros);
 		for (int i = 0; i < GAConfig.nPrisioneiros; i++){
 			prisioneiros.add(new Prisioneiro());
@@ -42,7 +38,7 @@ public class Populacao{
 	 * Cada indivíduo é comparado com um comparsa. Aquele que tiver menor
 	 * fitness é eliminado da população.
 	 */
-	public static void torneio(){
+	public void torneio(){
 		List<Prisioneiro> vencedores = new ArrayList<Prisioneiro>();
 		for (int i = 0; i < GAConfig.nPrisioneiros; i = i + 2){
 			vencedores.add(
@@ -58,7 +54,7 @@ public class Populacao{
 	 * Cria uma nova geração de indivíduos. Como os pais serão substituídos,
 	 * são gerados 4 filhos para cada casal, sendo duas duplas de gêmeos.
 	 */
-	public static void geracao(){
+	public void geracao(){
 		List<Prisioneiro> filhos = new ArrayList<Prisioneiro>();
 		for (int i = 0; i < GAConfig.nPrisioneiros/2; i = i + 2){
 			filhos.addAll(
@@ -75,7 +71,7 @@ public class Populacao{
 	 * @param n Índice do indivíduo.
 	 * @return Somatória dos Fitness comparado com todos os indivíduos.
 	 */
-	public static double fitnessTotal(int n){
+	public double fitnessTotal(int n){
 		double total = 0;
 		for (int i = 0; i < GAConfig.nPrisioneiros; i++){
 			if (i != n){
@@ -90,7 +86,7 @@ public class Populacao{
 	 * Índice de cooperação da população
 	 * @return Número entre 0 e 1 que representa a razão Cooperações/Total.
 	 */
-	public static double cooperacoes(){
+	public double cooperacoes(){
 		double total = 0;
 		for (Prisioneiro p : prisioneiros){
 			for (int i = 0; i < GAConfig.nGenes; i++){
@@ -106,7 +102,7 @@ public class Populacao{
 	 * @param n Índice do indivíduo 
 	 * @return Tempo total de cadeia
 	 */
-	public static double tempoTotal(int n){
+	public double tempoTotal(int n){
 		double total = 0;
 		for (int i = 0; i < GAConfig.nPrisioneiros; i++){
 			if (i != n){
@@ -121,7 +117,7 @@ public class Populacao{
 	 * prisioneiros.
 	 * @return Fitness total dos indivíduos.
 	 */
-	public static double fitnessTotal(){
+	public double fitnessTotal(){
 		double total = 0;
 		for (int i = 0; i < GAConfig.nPrisioneiros; i++){
 			total += fitnessTotal(i);
@@ -134,7 +130,7 @@ public class Populacao{
 	 * com toda a população.
 	 * @return Tempo total de cadeia da população.
 	 */
-	public static double tempoTotal(){
+	public double tempoTotal(){
 		double total = 0;
 		for (int i = 0; i < GAConfig.nPrisioneiros; i++){
 			total += tempoTotal(i);
@@ -146,7 +142,7 @@ public class Populacao{
 	 * Tempo médio de prisão da população
 	 * @return Tempo médio, em anos.
 	 */
-	public static double tempoMedio(){
+	public double tempoMedio(){
 		return tempoTotal()/
 		(GAConfig.nPrisioneiros * (GAConfig.nPrisioneiros-1) * GAConfig.nGenes);
 	}
@@ -158,7 +154,7 @@ public class Populacao{
 	 * @param n Índice do indivíduo.
 	 * @return Somatória dos Fitness comparado com metade dos indivíduos.
 	 */
-	public static double fitnessMetade(int n){
+	public double fitnessMetade(int n){
 		double total = 0;
 		int resto = 1 - n % 2;		
 		for (int i = 0; i < GAConfig.nPrisioneiros / 2; i++){
@@ -172,7 +168,7 @@ public class Populacao{
 	 * Embaralha a posição dos indivíduos na população para diversificar
 	 * o cruzamento.
 	 */
-	public static void misturar() {
+	public void misturar() {
 		Collections.sort(prisioneiros, new Comparator<Prisioneiro>() {
 			@Override
 			public int compare(Prisioneiro p1, Prisioneiro p2) { 
@@ -188,7 +184,7 @@ public class Populacao{
 	 * parâmetro dever ser true. Caso a comparação seja somente com metade da
 	 * população, então deve ser false.
 	 */
-	public static void comparar(boolean completo) {
+	public void comparar(boolean completo) {
 		
 		Prisioneiro p;
 		
@@ -220,7 +216,7 @@ public class Populacao{
 	 * Reporta a cadeia de genes de todos os indivíduos.
 	 * @return Cadeia e genes de todos os indivíduos.
 	 */
-	public static String relatorio(){
+	public String relatorio(){
 		StringBuilder sb = new StringBuilder();
 		for (Prisioneiro p : prisioneiros){
 			sb.append(p);
@@ -232,7 +228,7 @@ public class Populacao{
 	/**
 	 * Ordena todos os prisioneiros por ordem de fitness.
 	 */
-	public static void ordenar(){
+	public void ordenar(){
 		fitnessTotal();
 		Collections.sort(prisioneiros, new Comparator<Prisioneiro>() {
 			@Override
@@ -246,7 +242,7 @@ public class Populacao{
 	 * Retorna o primeiro prisioneiro da lista
 	 * @return Primeiro prisioneiro.
 	 */
-	public static Prisioneiro primeiro(){
+	public Prisioneiro primeiro(){
 		return prisioneiros.get(0);
 	}
 	
@@ -254,7 +250,7 @@ public class Populacao{
 	 * Retorna o último prisioneiro da lista
 	 * @return Último prisioneiro.
 	 */
-	public static Prisioneiro ultimo(){
+	public Prisioneiro ultimo(){
 		return prisioneiros.get(prisioneiros.size()-1);
 	}	
 }
